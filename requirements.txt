@@ -1,3 +1,4 @@
 - g++ compiler
 - make
 - Asio (I used the boost library asio)
+- smee client

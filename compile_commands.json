@@ -11,49 +11,11 @@
       "-DCROW_USE_BOOST",
       "-g",
       "-o",
-      "bin/listener.o",
-      "src/listener.cpp"
-    ],
-    "directory": "/home/systemglitch/home_assignment",
-    "file": "/home/systemglitch/home_assignment/src/listener.cpp",
-    "output": "/home/systemglitch/home_assignment/bin/listener.o"
-  },
-  {
-    "arguments": [
-      "/usr/bin/g++",
-      "-c",
-      "-Iinclude/",
-      "-std=c++20",
-      "-pedantic-errors",
-      "-Wall",
-      "-Wextra",
-      "-DCROW_USE_BOOST",
-      "-g",
-      "-o",
       "bin/main.o",
       "src/main.cpp"
     ],
     "directory": "/home/systemglitch/home_assignment",
     "file": "/home/systemglitch/home_assignment/src/main.cpp",
     "output": "/home/systemglitch/home_assignment/bin/main.o"
-  },
-  {
-    "arguments": [
-      "/usr/bin/g++",
-      "-c",
-      "-Iinclude/",
-      "-std=c++20",
-      "-pedantic-errors",
-      "-Wall",
-      "-Wextra",
-      "-DCROW_USE_BOOST",
-      "-g",
-      "-o",
-      "bin/reactor.o",
-      "src/reactor.cpp"
-    ],
-    "directory": "/home/systemglitch/home_assignment",
-    "file": "/home/systemglitch/home_assignment/src/reactor.cpp",
-    "output": "/home/systemglitch/home_assignment/bin/reactor.o"
   }
 ]
