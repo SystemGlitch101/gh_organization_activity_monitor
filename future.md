@@ -5,10 +5,10 @@ For the future, if I were to expand the project I would add the following featur
 A condition-checking class which for every event type can easily register a new condition, perhaps even through the CLI. Alternatively, this could be a config file where the user sets which types of conditions are checked, in the format of a known pattern matching format like regex.
 
 ### Dispatcher
-An internal dispatcher system, which upon event reception will notify other modules who expressed interest in the incoming event.
+An internal dispatcher system, which upon event reception will notify other modules who expressed interest in the incoming event. The event checkers can automatically sign up to the dispatcher of the event handler.
 
 ## C++20 Modules
-Because I'm using a header only library, the compilation time across just one compilation unit is slow. Because I'm including the Crow header file in several libraries, each compilation unit has to go through the same giant header file every time. The solution I would add in the future is C++20 modules. From cppreference:
+The web framework library I'm using is a header only library, and the compilation time across just one compilation unit is slow. Because I'm including the Crow header file in several libraries, each compilation unit has to go through the same giant header file every time. The solution I would add in the future is C++20 modules. From cppreference:
 
 `(...)Modules are a language feature to share declarations and definitions across translation units. They are an alternative to some use cases of headers(...)`
 
@@ -23,3 +23,7 @@ For now I configured the webhook to work only with json, but there are two types
 
 ### Store accurate time
 I am storing the time of the creation of a repository as it arrives to my server, which may be several seconds after the event transpired. To store an accurate time I'd have to convert the timestamp into a TimePoint type, as opposed to calling the now() function.
+
+### An interface for documenting events
+An suspicious event currently triggers a command line response. However, to make this easily swappable I would add an a "Documentation Interface". The CLI could be an implementation of that interface.
+

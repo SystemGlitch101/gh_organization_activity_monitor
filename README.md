@@ -10,15 +10,22 @@ Suspicious behaviors include:
 
 The design should be readable, efficient, coded in a way which can be expanded later on, and use good Object Oriented Design principles.
 
-## My development process
+## Third party modules used
+- Crow: a web framework.
 
+## Modules reused from the training
+- Waitable Queue: A thread safe queue.
+- Logger: A thread safe logger.
+- Handleton: An advanced singleton meant for multiple libraries usage.
+
+## My development process
 1. When I was given the assignment I immediately thought of the subject/observer pattern, where the application (observer) is getting notified by github (subject). I looked into it and found out about webhooks, even before I had read the full assignment, so it was nice to know I was on the mark.
 
 2. I took time to research about the REST api, and the various possible commands.
 
 3. Next, I decided on the language. I chose C++, as it has great libraries and I'm most comfortable with it.
 
-4. I looked into libraries which help me interact with webhooks, and a header only library called ![Crow](https://crowcpp.org/master/), which provided server creation functionalities as well as json parsing capabilities, so it suited my needs.
+4. I looked into libraries which help me interact with webhooks, and a header only library called [Crow](https://crowcpp.org/master/), which provided server creation functionalities as well as json parsing capabilities, so it suited my needs.
 
 5. Then I started reading about the webhook documentation on github, and specifically on what kind of content I will be parsing (which turns out to just be json content).
 
@@ -35,12 +42,10 @@ The design should be readable, efficient, coded in a way which can be expanded l
 10. Finally, I implemented the logic checks, tidied up the code, and updated the relevant documents.
 
 ## DEPENDENCIES INSTALLATION (Ubuntu/Debian)
-
 - `$ sudo apt install build-essential make libboost-all-dev`
 
 
 ## COMPILING
-
 This will compile both the debug build and the release build.
 - `$ make`
 
@@ -53,7 +58,7 @@ Alternatively you can specify which build you want:
 - Open the Makefile
 - Change the BINDADDR, PORT and WEBHOOK_PROXY_URL as needed
 - close the makefile
-- make sure you have smee.io installed (see [this doc](https://docs.github.com/en/enterprise-cloud@latest/apps/creating-github-apps/writing-code-for-a-github-app/quickstart)). Alternatively, you could use your own proxy and configure it accordingly. In that case you can skip the following step.
+- make sure you have smee.io installed (see [this doc](https://docs.github.com/en/enterprise-cloud@latest/apps/creating-github-apps/writing-code-for-a-github-app/quickstart)). Ensure you have the latest version of nodejs installed. Alternatively, you could use your own proxy and configure it accordingly. In that case you can skip the following step.
 - open a separate terminal in the same directory and run the following:
 - `$ make runproxy`
 
@@ -63,7 +68,3 @@ To run the release build:
 
 To run the debug build:
 - `$ make rundebug`
-
-## TODO:
-1. receive review from mentor
-2. send the assignment
