@@ -57,9 +57,10 @@ Alternatively you can specify which build you want:
 - open a separate terminal in the same directory and run the following:
 - `$ make runproxy`
 
-## RUNNING:
+## RUNNING
 To run the release build:
 - `$ make run`
+
 To run the debug build:
 - `$ make rundebug`
 
