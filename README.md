@@ -1,6 +1,6 @@
-### Legit-Security home assignment - given to Max (aka me)
+# Legit-Security home assignment - given to Max (aka me)
 
-### Task
+## Task
 Write a command line application which monitors events of a github organization and detects suspicious behavior, notifying the user of such events.
 
 Suspicious behaviors include:
@@ -10,7 +10,7 @@ Suspicious behaviors include:
 
 The design should be readable, efficient, coded in a way which can be expanded later on, and use good Object Oriented Design principles.
 
-### My development process
+## My development process
 
 1. When I was given the assignment I immediately thought of the subject/observer pattern, where the application (observer) is getting notified by github (subject). I looked into it and found out about webhooks, even before I had read the full assignment, so it was nice to know I was on the mark.
 
@@ -34,12 +34,12 @@ The design should be readable, efficient, coded in a way which can be expanded l
 
 10. Finally, I implemented the logic checks, tidied up the code, and updated the relevant documents.
 
-### DEPENDENCIES INSTALLATION (Ubuntu/Debian)
+## DEPENDENCIES INSTALLATION (Ubuntu/Debian)
 
 - `$ sudo apt install build-essential make libboost-all-dev`
 
 
-### COMPILING
+## COMPILING
 
 This will compile both the debug build and the release build.
 - `$ make`
@@ -49,7 +49,7 @@ Alternatively you can specify which build you want:
 - `$ make release`
 
 
-### SETUP
+## SETUP
 - open the
 - change the PORT, PROXY_ROUTE, and WEBHOOK_PROXY_URL as needed
 - close the makefile
@@ -57,7 +57,7 @@ Alternatively you can specify which build you want:
 - open a separate terminal in the same directory and run the following:
 - `$ make runproxy`
 
-### RUNNING:
+## RUNNING:
 To run the release build:
 - `$ make run`
 To run the debug build:
