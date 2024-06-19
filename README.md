@@ -35,7 +35,7 @@ The design should be readable, efficient, coded in a way which can be expanded l
 
 8. On the next day I sketched out a fuller UML diagram, and used that as reference a few times. Here it is:
 
-![GH Organization Monitor UML drawio](https://github.com/SystemGlitch101/gh_organization_activity_monitor/assets/59316055/0306e85d-9818-4e94-ae1a-1e64c3d1751d)
+![GH Organization Monitor UML drawio](https://github.com/SystemGlitch101/gh_organization_activity_monitor/assets/59316055/c089f454-d3f8-4616-811a-35a0bcbbfbec)
 
 9. I spent time creating and getting the webhook to work and get sent to a local port, which with the docs was very straightforward.
 
@@ -54,12 +54,13 @@ Alternatively you can specify which build you want:
 - `$ make release`
 
 
-## SETUP
-- Open the Makefile
-- Change the BINDADDR, PORT and WEBHOOK_PROXY_URL as needed
-- close the makefile
-- make sure you have smee.io installed (see [this doc](https://docs.github.com/en/enterprise-cloud@latest/apps/creating-github-apps/writing-code-for-a-github-app/quickstart)). Ensure you have the latest version of nodejs installed. Alternatively, you could use your own proxy and configure it accordingly. In that case you can skip the following step.
-- open a separate terminal in the same directory and run the following:
+## SMEE.IO SETUP
+- Open the Makefile.
+- Change the BINDADDR, PORT and WEBHOOK_PROXY_URL as needed.
+- Close the Makefile.
+- Make sure you have smee.io installed (see [this doc](https://docs.github.com/en/enterprise-cloud@latest/apps/creating-github-apps/writing-code-for-a-github-app/quickstart)).
+- Ensure you have the latest version of nodejs installed. 
+- Open a separate terminal in the same directory and run the following:
 - `$ make runproxy`
 
 ## RUNNING
