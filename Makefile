@@ -1,6 +1,6 @@
 # change the production to debug to see debug level logging
 TARGET := main
-PRODUCTION := DBG
+PRODUCTION := REL
 
 # Change the following three variables to fit your environment
 BINDADDR := 127.0.0.1
@@ -9,7 +9,7 @@ WEBHOOK_PROXY_URL := https://smee.io/oLA7lp7yRRFyB5w
 
 
 CC := g++
-CPPFLAGS := -std=c++20 -pedantic-errors -Wall -Wextra -DCROW_USE_BOOST
+CPPFLAGS := -std=c++2a -pedantic-errors -Wall -Wextra -DCROW_USE_BOOST
 FLAGDBG := -g
 FLAGREL := -O3 -DNDEBUG
 
@@ -18,7 +18,7 @@ BINREL := bin/release/
 
 LDPATHFLAGS := -Wl,-rpath='./$(BIN$(PRODUCTION))' -L./$(BIN$(PRODUCTION))
 LDFLAGS := -Wl,--start-group -llogger -lhandleton -lcli \
-	-levent_checkers -levent_handler -Wl,--end-group
+	-levent_checkers -levent_handler -lpthread -Wl,--end-group
 SRC := src/
 INCLUDE := include/ 
 
