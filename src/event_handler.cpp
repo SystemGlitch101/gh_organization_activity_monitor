@@ -22,8 +22,8 @@ void EventHandler::UnregisterEvent(const std::string& eventName)
     m_eventsMap.erase(eventName);
 }
 
-bool EventHandler::IsEventSuspicious(const std::string& eventName, const crow::json::rvalue& payload)
+bool EventHandler::IsEventSuspicious(const std::string& eventName, const crow::json::rvalue& payLoad)
 {
     s_logger->Log("[SERVER][Checking if " + eventName + " event is suspicious]", ilrd::Logger::INFO);
-    return m_eventsMap.at(eventName)->IsEventSuspicious(payload);
+    return m_eventsMap.at(eventName)->IsEventSuspicious(payLoad);
 }

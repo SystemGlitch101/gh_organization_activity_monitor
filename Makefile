@@ -1,5 +1,6 @@
+# change the production to debug to see debug level logging
 TARGET := main
-PRODUCTION := debug
+PRODUCTION := DBG
 
 # Change the following three variables to fit your environment
 BINDADDR := 127.0.0.1
@@ -9,45 +10,58 @@ WEBHOOK_PROXY_URL := https://smee.io/oLA7lp7yRRFyB5w
 
 CC := g++
 CPPFLAGS := -std=c++20 -pedantic-errors -Wall -Wextra -DCROW_USE_BOOST
-LDPATHFLAGS := -Wl,-rpath='./bin' -L./bin
+FLAGDBG := -g
+FLAGREL := -O3 -DNDEBUG
+
+BINDBG := bin/debug/
+BINREL := bin/release/
+
+LDPATHFLAGS := -Wl,-rpath='./$(BIN$(PRODUCTION))' -L./$(BIN$(PRODUCTION))
 LDFLAGS := -Wl,--start-group -llogger -lhandleton -lcli \
 	-levent_checkers -levent_handler -Wl,--end-group
-
-RELFLAG := -O3 -DNDEBUG
-DBGFLAG := -g
-
-BIN := bin/
 SRC := src/
 INCLUDE := include/ 
 
-OBJECTS := $(BIN)main.o $(BIN)liblogger.so $(BIN)libhandleton.so \
-	$(BIN)libcli.so $(BIN)libevent_checkers.so $(BIN)libevent_handler.so
+OBJECTS := $(BIN$(PRODUCTION))$(TARGET).o $(BIN$(PRODUCTION))liblogger.so $(BIN$(PRODUCTION))libhandleton.so \
+	$(BIN$(PRODUCTION))libcli.so $(BIN$(PRODUCTION))libevent_checkers.so $(BIN$(PRODUCTION))libevent_handler.so
 
-ifeq ($(PRODUCTION),debug)
-	CPPFLAGS += $(DBGFLAG)
-else
-	CPPFLAGS += $(RELFLAG)
-endif
+CPPFLAGS += $(FLAG$(PRODUCTION))
 
-.PHONY: run runproxy clean clean_all
+.PHONY: run runproxy rundebug clean clean_all \
+	debug release
 
-$(BIN)$(TARGET): $(OBJECTS)
+all: debug release
+
+debug:
+	$(MAKE) $(BINDBG)$(TARGET) PRODUCTION=DBG
+
+release:
+	$(MAKE) $(BINREL)$(TARGET) PRODUCTION=REL
+
+$(BIN$(PRODUCTION))$(TARGET): $(OBJECTS)
 	$(CC) $(LDPATHFLAGS) $< $(LDFLAGS) -o $@
 
-run: $(BIN)$(TARGET)
-	./$< $(BINDADDR) $(PORT)
+rundebug: debug
+	./$(BINDBG)$(TARGET) $(BINDADDR) $(PORT)
+
+run: release
+	./$(BINREL)$(TARGET) $(BINDADDR) $(PORT)
+
 
 runproxy:
 	smee --url $(WEBHOOK_PROXY_URL) --path / --port $(PORT)
 
-$(BIN)%.o: $(SRC)%.cpp
+$(BIN$(PRODUCTION))%.o: $(SRC)%.cpp
 	$(CC) -c $^ -I$(INCLUDE) $(CPPFLAGS) -o $@
 
-$(BIN)lib%.so: $(SRC)%.cpp
+$(BIN$(PRODUCTION))lib%.so: $(SRC)%.cpp
 	$(CC) $(CPPFLAGS) -fPIC -shared -I$(INCLUDE) $< -o $@
 
 clean:
-	rm -f $(BIN)*.o $(BIN)*.out 
+	rm -f $(BINDBG)*.o $(BINREL)*.o \
+		$(BINDBG)*.out $(BINREL)*.out
 
 clean_all: clean
-	rm -f $(BIN)*.so
+	rm -f $(BINDBG)*.o $(BINREL)*.o \
+		$(BINDBG)*.out $(BINREL)*.out \
+		$(BINDBG)*.so $(BINREL)*.so

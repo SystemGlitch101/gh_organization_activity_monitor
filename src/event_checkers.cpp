@@ -1,4 +1,4 @@
-#include <chrono>             // std::chrono::system_clock::now
+#include <chrono>             // std::chrono::system_clock::now()
 #include <cinttypes>          // strtoimax
 #include "event_checkers.hpp" 
 
@@ -12,10 +12,10 @@ PushEventChecker::PushEventChecker(const Hours& startHour, const Hours& invalidD
 {
 }
 
-PushEventChecker::Hours PushEventChecker::GetToHourOfDay(const crow::json::rvalue& payload)
+PushEventChecker::Hours PushEventChecker::GetHourOfDay(const crow::json::rvalue& payLoad)
 {
     char hourBuf[3] = { 0 };
-    std::string timeStampStr = payload["head_commit"]["timestamp"].s();
+    std::string timeStampStr = payLoad["head_commit"]["timestamp"].s();
 
     // format: 2024-06-18T12:00:10+03:00
     size_t hourIndex = timeStampStr.find("T") + 1;
@@ -26,9 +26,9 @@ PushEventChecker::Hours PushEventChecker::GetToHourOfDay(const crow::json::rvalu
 }
 
 
-bool PushEventChecker::IsEventSuspicious(const crow::json::rvalue& payload)
+bool PushEventChecker::IsEventSuspicious(const crow::json::rvalue& payLoad)
 {
-    Hours hourOfDay = GetToHourOfDay(payload);
+    Hours hourOfDay = GetHourOfDay(payLoad);
     
     return (m_startHour <= hourOfDay && hourOfDay <= m_endHour);
 }
@@ -36,19 +36,19 @@ bool PushEventChecker::IsEventSuspicious(const crow::json::rvalue& payload)
 
 // ==================== TeamEventChecker =========================
 
-bool TeamEventChecker::IsEventSuspicious(const crow::json::rvalue& payload)
+bool TeamEventChecker::IsEventSuspicious(const crow::json::rvalue& payLoad)
 {
-    return isCreated(payload) && hasHackerPrefix(payload);
+    return IsCreated(payLoad) && HasHackerPrefix(payLoad);
 }
 
-bool TeamEventChecker::isCreated(const crow::json::rvalue& payload)
+bool TeamEventChecker::IsCreated(const crow::json::rvalue& payLoad)
 {
-    return  payload["action"] == "created";
+    return  payLoad["action"] == "created";
 }
 
-bool TeamEventChecker::hasHackerPrefix(const crow::json::rvalue& payload)
+bool TeamEventChecker::HasHackerPrefix(const crow::json::rvalue& payLoad)
 {
-    std::string name(payload["team"]["name"].s());
+    std::string name(payLoad["team"]["name"].s());
 
     return 0 == strncasecmp(name.c_str(), "hacker", 5);
 }
@@ -61,21 +61,21 @@ RepoEventChecker::Minutes RepoEventChecker::GetRepoAge(uint64_t repoId)
     return std::chrono::duration_cast<Minutes>(std::chrono::system_clock::now() - m_repoCreationTimes.at(repoId));
 }
 
-bool RepoEventChecker::IsEventSuspicious(const crow::json::rvalue& payload)
+bool RepoEventChecker::IsEventSuspicious(const crow::json::rvalue& payLoad)
 {
     uint64_t repoId = 0;
-    if (payload["action"] == "deleted")
+    if (payLoad["action"] == "deleted")
     {
-        repoId = payload["repository"]["id"].u();
+        repoId = payLoad["repository"]["id"].u();
         bool ret = (GetRepoAge(repoId) <= 10min);
         m_repoCreationTimes.erase(repoId);
 
         return ret;
     }
 
-    if (payload["action"] == "created")
+    if (payLoad["action"] == "created")
     {
-        m_repoCreationTimes[payload["repository"]["id"].u()] = std::chrono::system_clock::now();
+        m_repoCreationTimes[payLoad["repository"]["id"].u()] = std::chrono::system_clock::now();
     }
 
     return false;

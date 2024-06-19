@@ -57,7 +57,7 @@ int main(int argc, const char **argv)
 void SetRouteCallback(crow::SimpleApp& app)
 {        
     CROW_ROUTE(app, "/")
-    .methods("GET"_method, "POST"_method)(
+    .methods("POST"_method)(
         [](const crow::request& req)
         {
             try
@@ -160,6 +160,8 @@ void InitApp(crow::SimpleApp& app)
     app.multithreaded();
     #ifndef NDEBUG
     app.loglevel(crow::LogLevel::Debug);
+    #else
+    app.loglevel(crow::LogLevel::Error);
     #endif // NDEBUG
 }
 void InitEventHandler()

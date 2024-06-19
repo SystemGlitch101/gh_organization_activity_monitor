@@ -41,7 +41,13 @@ The design should be readable, efficient, coded in a way which can be expanded l
 
 ### COMPILING
 
+This will compile both the debug build and the release build.
 - `$ make`
+
+Alternatively you can specify which build you want:
+- `$ make debug`
+- `$ make release`
+
 
 ### SETUP
 - open the
@@ -52,9 +58,11 @@ The design should be readable, efficient, coded in a way which can be expanded l
 - `$ make runproxy`
 
 ### RUNNING:
+To run the release build:
 - `$ make run`
+To run the debug build:
+- `$ make rundebug`
 
 ## TODO:
-1. patch up docs
-2. receive review from mentor
-3. send the assignment
+1. receive review from mentor
+2. send the assignment

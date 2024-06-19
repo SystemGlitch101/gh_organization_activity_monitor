@@ -5,12 +5,9 @@
 #include <cstdint>         // uint64_t
 #include <unordered_map>   // std::unordered_map
 
-#include "crow_all.h"
+#include "crow_all.h"      // std::chrono::json::rvalue
 
-using namespace std::chrono_literals;
-
-// CHECKER must provide a function of the following type:
-// bool IsEventSuspicious(const crow::json::rvalue&);
+using namespace std::chrono_literals; // hours, minutes
 
 class IEventTypeChecker
 {
@@ -23,7 +20,7 @@ public:
     IEventTypeChecker& operator=(const IEventTypeChecker&& rhs) = delete;
     ~IEventTypeChecker() = default;
 
-    virtual bool IsEventSuspicious(const crow::json::rvalue& payload) = 0;
+    virtual bool IsEventSuspicious(const crow::json::rvalue& payLoad) = 0;
 };
 
 class PushEventChecker: public IEventTypeChecker
@@ -32,9 +29,9 @@ public:
     using Hours = std::chrono::hours;
     PushEventChecker(const Hours& startHour = 14h, const Hours& invalidDuration = 2h);
 
-    bool IsEventSuspicious(const crow::json::rvalue& payload);
+    bool IsEventSuspicious(const crow::json::rvalue& payLoad);
 private:
-    Hours GetToHourOfDay(const crow::json::rvalue& payload);
+    Hours GetHourOfDay(const crow::json::rvalue& payLoad);
     Hours m_startHour;
     Hours m_endHour;
 };
@@ -44,10 +41,10 @@ class TeamEventChecker: public IEventTypeChecker
 public:
     TeamEventChecker() = default;
     ~TeamEventChecker() = default;
-    bool IsEventSuspicious(const crow::json::rvalue& payload);
+    bool IsEventSuspicious(const crow::json::rvalue& payLoad);
 private:
-    bool isCreated(const crow::json::rvalue& payload);
-    bool hasHackerPrefix(const crow::json::rvalue& payload);
+    bool IsCreated(const crow::json::rvalue& payLoad);
+    bool HasHackerPrefix(const crow::json::rvalue& payLoad);
 };
 
 class RepoEventChecker: public IEventTypeChecker
@@ -55,7 +52,7 @@ class RepoEventChecker: public IEventTypeChecker
 public:
     RepoEventChecker() = default;
     ~RepoEventChecker() = default;
-    bool IsEventSuspicious(const crow::json::rvalue& payload);
+    bool IsEventSuspicious(const crow::json::rvalue& payLoad);
 
 private:
     using TimePoint = std::chrono::system_clock::time_point;

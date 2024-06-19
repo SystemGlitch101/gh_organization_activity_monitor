@@ -1,13 +1,13 @@
 #ifndef __EVENT_HANDLER_HPP__
 #define __EVENT_HANDLER_HPP__
 
-#include <string> // std::string
-#include <memory> // std::shared_ptr
-#include <unordered_map> // std::unordered_map
+#include <string>              // std::string
+#include <memory>              // std::shared_ptr
+#include <unordered_map>       // std::unordered_map
 
-#include "crow_all.h"
+#include "crow_all.h"          // crow::json::rvalue
 #include "event_checkers.hpp"  // IEventTypeChecker
-#include "logger.hpp"
+#include "logger.hpp"          // ilrd::Logger
 
 class EventHandler
 {
@@ -21,7 +21,7 @@ public:
 
     void RegisterEvent(const std::string& eventName, std::shared_ptr<IEventTypeChecker> eventType);
     void UnregisterEvent(const std::string& eventName);
-    bool IsEventSuspicious(const std::string& eventName, const crow::json::rvalue& payload);
+    bool IsEventSuspicious(const std::string& eventName, const crow::json::rvalue& payLoad);
 private:
     static ilrd::Logger *s_logger;
     using SharedEvent = std::shared_ptr<IEventTypeChecker>;
