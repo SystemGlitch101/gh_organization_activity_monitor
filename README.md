@@ -35,7 +35,7 @@ The design should be readable, efficient, coded in a way which can be expanded l
 
 8. On the next day I sketched out a fuller UML diagram, and used that as reference a few times. Here it is:
 
-![GH Organization Monitor UML drawio](https://github.com/SystemGlitch101/gh_organization_activity_monitor/assets/59316055/c089f454-d3f8-4616-811a-35a0bcbbfbec)
+![GH Organization Monitor UML drawio](https://github.com/SystemGlitch101/gh_organization_activity_monitor/assets/59316055/ee3255e6-f417-404f-ba39-e5f59ce24ef0)
 
 9. I spent time creating and getting the webhook to work and get sent to a local port, which with the docs was very straightforward.
 
