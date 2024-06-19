@@ -50,10 +50,10 @@ Alternatively you can specify which build you want:
 
 
 ## SETUP
-- open the
-- change the PORT, PROXY_ROUTE, and WEBHOOK_PROXY_URL as needed
+- Open the Makefile
+- Change the BINDADDR, PORT and WEBHOOK_PROXY_URL as needed
 - close the makefile
-- make sure you have smee.io installed (see ![this doc](https://docs.github.com/en/enterprise-cloud@latest/apps/creating-github-apps/writing-code-for-a-github-app/quickstart)). Alternatively, you could use your own proxy and configure it accordingly. In that case you can skip the following step.
+- make sure you have smee.io installed (see [this doc](https://docs.github.com/en/enterprise-cloud@latest/apps/creating-github-apps/writing-code-for-a-github-app/quickstart)). Alternatively, you could use your own proxy and configure it accordingly. In that case you can skip the following step.
 - open a separate terminal in the same directory and run the following:
 - `$ make runproxy`
 
